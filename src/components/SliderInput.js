@@ -15,20 +15,31 @@ const SliderInput = ({ id }) => {
   const [value, setValue] = useState(
     selectedArea?.done ? selectedArea.value : 0
   );
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
     setAreas((prevAreas) =>
-      prevAreas.map((area) => (area.id === id ? { ...area, value } : area))
+      prevAreas.map((area) =>
+        area.id === id
+          ? {
+              ...area,
+              value,
+              ...(hasInteracted ? { valueSet: true } : {}),
+            }
+          : area
+      )
     );
-  }, [value]);
+  }, [value, hasInteracted, id, setAreas]);
 
   const handleDecrease = () => {
+    setHasInteracted(true);
     setValue((prev) =>
       Math.max(parseFloat((parseFloat(prev) - 0.5).toFixed(1)), 0)
     );
   };
 
   const handleIncrease = () => {
+    setHasInteracted(true);
     setValue((prev) =>
       Math.min(
         parseFloat((parseFloat(prev) + 0.5).toFixed(1)),
@@ -53,7 +64,10 @@ const SliderInput = ({ id }) => {
             max={selectedArea.palms}
             step={0.5}
             value={parseFloat(value)}
-            onChange={(val) => setValue(val.toFixed(1))}
+            onChange={(val) => {
+              setHasInteracted(true);
+              setValue(val.toFixed(1));
+            }}
             styles={{
               track: { backgroundColor: "transparent", height: 10 },
               rail: { backgroundColor: "transparent", height: 10 },

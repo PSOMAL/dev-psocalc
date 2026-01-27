@@ -40,7 +40,14 @@
     "generalInfoButton": "Allmän info",
     "mathematicalFoundationButton": "Uträkningsprinciper",
     "disclaimerButton": "Disclaimer",
-    "chooseHandsHere": "Välj antal händer"
+    "chooseHandsHere": "Välj antal händer",
+    "cancel": "Avbryt",
+    "handsMissingItem": "Händer - inte valt eller 0",
+    "rednessMissingItem": "Rodnad - inte valt eller satt till ingen",
+    "thicknessMissingItem": "Tjocklek - inte valt eller satt till ingen",
+    "scalingMissingItem": "Fjällning - inte valt eller satt till ingen",
+    "missingValuesTitle": "Alla val är inte ifylda",
+    "missingValuesQuestion": "Vill du fortsätta ändå?"
   },
   "generalInfo": {
     "backgroundTitle": "Om PsoCalc",

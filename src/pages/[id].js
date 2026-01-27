@@ -12,19 +12,28 @@ import useDeviceType from "@/hooks/useDeviceType";
 import InfoPopup from "@/components/InfoPopup";
 import { assetPath } from "@/lib/assetPath";
 import sv from "@/locales/sv.json";
+import ConfirmDialog from "@/components/ConfirmDialog";
 
 export default function KategoriPage() {
   const router = useRouter();
   const { id } = router.query;
-  const { areas } = useArea();
+  const { areas, setAreas } = useArea();
   const { t } = useTranslation();
   const isMobile = useDeviceType();
   const [isFrontBody, setIsFrontBody] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [confirmItems, setConfirmItems] = useState([]);
 
   const category = t.categories.find((cat) => cat.id === id);
 
-  const selectedArea = areas.find((item) => item.id === id) || { value: 0 };
+  const selectedArea = areas.find((item) => item.id === id) || {
+    value: 0,
+    valueSet: false,
+    rednessSet: false,
+    thicknessSet: false,
+    scalingSet: false,
+  };
 
   const changeSide = () => {
     setIsFrontBody((prev) => !prev);
@@ -35,7 +44,49 @@ export default function KategoriPage() {
   }
 
   const lockButton = () => {
-    selectedArea.done = true;
+    setAreas((prevAreas) =>
+      prevAreas.map((area) =>
+        area.id === id ? { ...area, done: true } : area
+      )
+    );
+  };
+
+  const getMissingFields = () => {
+    const missing = [];
+    if (!selectedArea.valueSet || Number(selectedArea.value) === 0) {
+      missing.push(t.translation.handsMissingItem || t.translation.hands);
+    }
+    if (!selectedArea.rednessSet) {
+      missing.push(t.translation.rednessMissingItem || t.translation.redness);
+    }
+    if (!selectedArea.thicknessSet) {
+      missing.push(
+        t.translation.thicknessMissingItem || t.translation.thickness
+      );
+    }
+    if (!selectedArea.scalingSet) {
+      missing.push(t.translation.scalingMissingItem || t.translation.scaling);
+    }
+    return missing;
+  };
+
+  const handleBeforeRoute = () => {
+    const missing = getMissingFields();
+    if (missing.length === 0) return true;
+
+    setConfirmItems(missing);
+    setIsConfirmOpen(true);
+    return false;
+  };
+
+  const handleConfirmContinue = () => {
+    setIsConfirmOpen(false);
+    lockButton();
+    router.push("/home");
+  };
+
+  const handleConfirmCancel = () => {
+    setIsConfirmOpen(false);
   };
 
   const openPopup = () => {
@@ -72,9 +123,20 @@ export default function KategoriPage() {
             buttonUrl="/home"
             shouldLock={true}
             width={250}
+            onBeforeRoute={handleBeforeRoute}
           />
         </div>
       </div>
+      <ConfirmDialog
+        isOpen={isConfirmOpen}
+        title={t.translation.missingValuesTitle}
+        items={confirmItems}
+        question={t.translation.missingValuesQuestion}
+        confirmText={t.translation.continue}
+        cancelText={t.translation.cancel}
+        onConfirm={handleConfirmContinue}
+        onCancel={handleConfirmCancel}
+      />
     </div>
   );
 }

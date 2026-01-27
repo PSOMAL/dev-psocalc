@@ -37,9 +37,12 @@ const BodyImages = ({ id, changeSide }) => {
       [image.id]: imageSrc,
     }));
 
+    const flagKey = `${image.id}Set`;
     setAreas((prevAreas) =>
       prevAreas.map((area) =>
-        area.id === id ? { ...area, [image.id]: index } : area
+        area.id === id
+          ? { ...area, [image.id]: index, [flagKey]: true }
+          : area
       )
     );
   };

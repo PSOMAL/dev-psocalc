@@ -2,7 +2,14 @@ import Styles from "@/styles/Button.module.css";
 import { useRouter } from "next/router";
 import useDeviceType from "@/hooks/useDeviceType";
 
-const Button = ({ lockButton, textButton, buttonUrl, shouldLock, width }) => {
+const Button = ({
+  lockButton,
+  textButton,
+  buttonUrl,
+  shouldLock,
+  width,
+  onBeforeRoute,
+}) => {
   const router = useRouter();
   const isMobile = useDeviceType();
 
@@ -16,6 +23,9 @@ const Button = ({ lockButton, textButton, buttonUrl, shouldLock, width }) => {
         className={Styles.button}
         style={{ width: !isMobile ? `${width}px` : "100%" }}
         onClick={() => {
+          if (onBeforeRoute && onBeforeRoute() === false) {
+            return;
+          }
           routeButton();
           if (shouldLock) {
             lockButton();

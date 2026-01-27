@@ -40,7 +40,14 @@
     "generalInfoButton": "Algemene info",
     "mathematicalFoundationButton": "Wiskundige basis",
     "disclaimerButton": "Disclaimer",
-    "chooseHandsHere": "Kies aantal handen"
+    "chooseHandsHere": "Kies aantal handen",
+    "cancel": "Annuleren",
+    "handsMissingItem": "Handen - niet gekozen of 0",
+    "rednessMissingItem": "Roodheid - niet gekozen of op geen gezet",
+    "thicknessMissingItem": "Dikte - niet gekozen of op geen gezet",
+    "scalingMissingItem": "Schilfering - niet gekozen of op geen gezet",
+    "missingValuesTitle": "Niet alle keuzes zijn ingevuld",
+    "missingValuesQuestion": "Wil je toch doorgaan?"
   },
   "generalInfo": {
     "backgroundTitle": "Over PsoCalc",

@@ -40,7 +40,14 @@
     "generalInfoButton": "General info",
     "mathematicalFoundationButton": "Calculations",
     "disclaimerButton": "Disclaimer",
-    "chooseHandsHere": "Choose number of hands"
+    "chooseHandsHere": "Choose number of hands",
+    "cancel": "Cancel",
+    "handsMissingItem": "Hands - not selected or 0",
+    "rednessMissingItem": "Redness - not selected or set to none",
+    "thicknessMissingItem": "Thickness - not selected or set to none",
+    "scalingMissingItem": "Scaling - not selected or set to none",
+    "missingValuesTitle": "Some selections are incomplete",
+    "missingValuesQuestion": "Do you want to continue anyway?"
   },
   "generalInfo": {
     "backgroundTitle": "About PsoCalc",
